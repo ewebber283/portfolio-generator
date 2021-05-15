@@ -129,21 +129,18 @@ Add a New Project
 promptUser()
   .then(promptProject)
   .then(portfolioData => {
-    console.log(portfolioData);
-  })
 //const fs = require('fs');
 //const generatePage = require('./src/page-template.js');
 //holds command line arguments
 //const profileDataArgs = process.argv.slice(2);
 // extract arguments and store in variable
 //const [name, github] = profileDataArgs;
-//const pageHTML = generatePage(name, github);
+    const pageHTML = generatePage(portfolioData);
 // generates the page
 
 
-//fs.writeFile('./index.html', generatePage(name, github), err => {
-  //  if (err) throw new err;
+   fs.writeFile('./index.html', pageHTML, err => {
+     if (err) throw new err;
 
-    //console.log('Portfolio complete! Check out index.html to see the output!');
-//});
-
+  });
+});
