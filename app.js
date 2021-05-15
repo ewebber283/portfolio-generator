@@ -1,7 +1,6 @@
-const fs = require('fs');
 const inquirer = require('inquirer');
 const generatePage = require('./src/page-template')
-
+const { writeFile, copyFile} = require('./utils/generate-site')
 const promptUser = () => {
   return inquirer.prompt([
     {
@@ -129,18 +128,25 @@ Add a New Project
 promptUser()
   .then(promptProject)
   .then(portfolioData => {
-//const fs = require('fs');
-//const generatePage = require('./src/page-template.js');
-//holds command line arguments
-//const profileDataArgs = process.argv.slice(2);
-// extract arguments and store in variable
-//const [name, github] = profileDataArgs;
-    const pageHTML = generatePage(portfolioData);
-// generates the page
-
-
-   fs.writeFile('./index.html', pageHTML, err => {
-     if (err) throw new err;
-
+    return generatePage(portfolioData);
+  })
+  .then(pageHTML => {
+    return writeFile(pageHTML);
+  })
+  .then(writeFileResponse => {
+    console.log(writeFileResponse);
+    return copyFile();
+  })
+  .then(copyFileResponse => {
+    console.log(copyFileResponse);
+  })
+  .catch(err => {
+    console.log(err);
   });
-});
+
+
+
+
+
+  
+
